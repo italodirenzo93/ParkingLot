@@ -15,7 +15,7 @@ namespace VehiklParkingApi.Models
 
         public void Seed()
         {
-            // Define the different rate levels
+            // Define the different rate levels in a separate table (allows them to be changed without needing to modify program code)
             RateLevels.AddRange(new RateLevel[] {
                 new RateLevel { Id = 1, Name = "1hr", Duration = TimeSpan.FromHours(1), RateValue = 3.00M },
                 new RateLevel { Id = 2, Name = "3hr", Duration = TimeSpan.FromHours(3), RateValue = 4.50M },
@@ -23,7 +23,7 @@ namespace VehiklParkingApi.Models
                 new RateLevel { Id = 4, Name = "ALL DAY", Duration = null, RateValue = 10.125M },
             });
 
-            // Add some starting test tickets
+            // Add some test tickets
             var now = DateTimeOffset.Now;
             Tickets.AddRange(new Ticket[] {
                 new Ticket { Customer = "Italo Di Renzo", RateLevelId = 3, IssuedOn = now.AddHours(-10) },

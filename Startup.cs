@@ -28,6 +28,8 @@ namespace VehiklParkingApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configure the database connection. Could also use other backends such as SQLite, MySQL, SQLServer, etc.
+            // Selected in-memory database for simplicity of demonstration
             services.AddDbContext<VehiklParkingContext>(options => options.UseInMemoryDatabase("VehiklParkingDb"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

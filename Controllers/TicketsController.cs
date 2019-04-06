@@ -61,6 +61,8 @@ namespace VehiklParkingApi.Controllers
             // Flat rate
             else
             {
+                // All-day overage charges would be calculated based on whatever the lot's policy and definition of "All day" is
+                // For now, we'll just assume they pay the flat rate for the duration of their stay
                 invoice.AmountOwed = ticket.RateLevel.RateValue;
             }
             
