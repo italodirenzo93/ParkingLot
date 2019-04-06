@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "0ac3739a-2884-4e63-8dd9-d5a99df0c75b",
+		"name": "Vehikl Parking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check Capacity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e11aaf5-8aba-4b84-87ef-e2725743b678",
+						"exec": [
+							"pm.test(\"Garage has 4 spaces taken\", function () {",
+							"    pm.expect(pm.response.json().spacesTaken).to.equal(4);",
+							"});",
+							"",
+							"pm.test(\"Garage has 1 space available\", function () {",
+							"    pm.expect(pm.response.json().spacesAvailable).to.equal(1);",
+							"});",
+							"",
+							"pm.test(\"The number of tickets returned matches the number of spaces taken\", function () {",
+							"    var json = pm.response.json(); ",
+							"    pm.expect(json.tickets.length).to.equal(json.spacesTaken);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tickets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Takes a Ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "57c22bde-f0cf-4439-8dbf-5a529d6e583c",
+						"exec": [
+							"pm.test(\"Should return a 201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\tcustomer: \"Willem DaFoe\",\n\trateLevelId: 2\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tickets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Parking Garage Full",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2857ee00-2854-4056-8759-61d253dff4fb",
+						"exec": [
+							"pm.test(\"Should return 429 response\", function () {",
+							"    pm.response.to.have.status(429);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\tcustomer: \"Gandalf The Gray\",\n\trateLevelId: 4\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tickets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbfa26da-00ea-4a8a-b562-1e5df24b76de",
+						"exec": [
+							"pm.test(\"Ticket number matches endpoint\", function () {",
+							"    pm.expect(pm.response.json().ticketId).to.equal(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tickets/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tickets",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pay Ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f1919ed-5dbb-4347-baa7-0fecc620a6a2",
+						"exec": [
+							"pm.test(\"Should return 200 status\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Space should become available\", function () {",
+							"    pm.expect(pm.response.json().spacesAvailable).to.equal(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\tticketId: 1,\n\tcreditCard: \"4111 1111 1111 1111\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/payments/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"payments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "85db51a9-4ca7-43d2-bb49-df5787a427e0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "904cec51-957c-4225-a8d9-801d74092fa6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "6b1123fd-ad0b-4caa-9e04-24aaa436e3cf",
+			"key": "baseUrl",
+			"value": "localhost:5000/api",
+			"type": "string"
+		}
+	]
+}
