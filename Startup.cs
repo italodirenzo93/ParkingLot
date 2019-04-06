@@ -36,8 +36,8 @@ namespace VehiklParkingApi
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, VehiklParkingContext context)
         {
             // Insert some test data
-            
             context.Seed();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -27,14 +27,14 @@ namespace VehiklParkingApi.Controllers
             if (id != payment.TicketId)
                 return BadRequest();
 
-            var ticket = await context.Tickets.FindAsync(payment.TicketId);
+            var ticket = await context.FindAsync<Ticket>(payment.TicketId);
             if (ticket == null)
                 return NotFound();
             
             // Credit card transaction stuff goes here...
 
             // Delete the ticket. It has been paid for
-            context.Tickets.Remove(ticket);
+            context.Remove(ticket);
             await context.SaveChangesAsync();
             return Ok();    // Maybe return some kind of "reciept" here.
         }

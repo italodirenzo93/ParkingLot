@@ -53,8 +53,8 @@ namespace VehiklParkingApi.Controllers
                 // Difference in time between when they pulled into the lot and now
                 var lengthOfStay = (DateTimeOffset.Now - ticket.IssuedOn);
 
-                // Calculate the final ticket price (rate * stayDuration / rateTime) rounded to 2 decimal places
-                invoice.AmountOwed = decimal.Round( ticket.RateLevel.RateValue * (decimal)(lengthOfStay.TotalHours / ticket.RateLevel.Duration.Value.TotalHours), 2);
+                // Calculate the final ticket price (rate * stayDuration / rateTime)
+                invoice.AmountOwed = ticket.RateLevel.RateValue * (decimal)(lengthOfStay.TotalHours / ticket.RateLevel.Duration.Value.TotalHours);
             }
             // Flat rate
             else

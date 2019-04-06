@@ -6,7 +6,7 @@ namespace VehiklParkingApi.ViewModels
     {
         public int TicketId { get; set; }
 
-        [Required]
-        public string CreditCardNumber { get; set; }
+        [Required, CreditCard]
+        public string CreditCard { get; set; }
     }
 }
