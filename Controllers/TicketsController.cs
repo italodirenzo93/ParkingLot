@@ -25,9 +25,11 @@ namespace VehiklParkingApi.Controllers
 
         // GET api/tickets
         [HttpGet]
-        public async Task<IEnumerable<Ticket>> Get()
+        public async Task<ActionResult> Get()
         {
-            return await context.Tickets.Include(t => t.RateLevel).ToListAsync();
+            var tickets = await context.Tickets.Include(t => t.RateLevel).ToListAsync();
+            var capacity = config.GetValue<int>("MaxParkingSpaces");
+            return Ok(new { spacesTaken = tickets.Count, spacesAvailable = capacity - tickets.Count, tickets });
         }
 
         // GET api/tickets/5
@@ -69,15 +71,23 @@ namespace VehiklParkingApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([Bind("Customer", "RateLevelId")] Ticket ticket)
         {
+            // Check for a valid rate level
+            ticket.RateLevel = await context.FindAsync<RateLevel>(ticket.RateLevelId);
+            if (ticket.RateLevel == null)
+                return BadRequest(new { status = 400, message = "Invalid rate level chosen. Please specify a valid rate level." });
+
             // Check if the garage is full
             var ticketCount = await context.Tickets.CountAsync();
-            var maxSpaces = config.GetValue<int>("MaxParkingSpaces", 10);
+            var maxSpaces = config.GetValue<int>("MaxParkingSpaces");
+
+            // Deny entry if the garage is full
             if (ticketCount >= maxSpaces)
                 return StatusCode(429, new { status = 429, message = "Parking Garage is full." }); // Too Many Requests (garage is full)
 
+            // Give a ticket
             await context.AddAsync(ticket);
             await context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Post), ticket);
+            return CreatedAtAction(nameof(Post), new { ticket.Id, ticket.Customer, ticket.IssuedOn, rate = ticket.RateLevel.Name });
         }
     }
 }
