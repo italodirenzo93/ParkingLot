@@ -11,6 +11,7 @@ using VehiklParkingApi.ViewModels;
 namespace VehiklParkingApi.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class PaymentsController : ControllerBase
     {
         private readonly VehiklParkingContext context;
