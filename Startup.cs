@@ -30,7 +30,7 @@ namespace VehiklParkingApi
         {
             // Configure the database connection. Could also use other backends such as SQLite, MySQL, SQLServer, etc.
             // Selected in-memory database for simplicity of demonstration
-            services.AddDbContext<VehiklParkingContext>(options => options.UseSqlite("data source=VehiklParking.db"));
+            services.AddDbContext<VehiklParkingContext>(options => options.UseSqlite(Configuration.GetConnectionString("MainDb")));
             services.AddCors(options => {
                 options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));
             });
@@ -42,15 +42,16 @@ namespace VehiklParkingApi
         {     
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                
             }
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
 
             //app.UseHttpsRedirection();
+            app.UseDeveloperExceptionPage();
             app.UseCors();
             app.UseMvc();
         }
