@@ -1,3 +1,6 @@
-
+# Compiled outputs
 bin
 obj
+
+# Sqlite database file
+VehiklParking.db

@@ -30,16 +30,16 @@ namespace VehiklParkingApi
         {
             // Configure the database connection. Could also use other backends such as SQLite, MySQL, SQLServer, etc.
             // Selected in-memory database for simplicity of demonstration
-            services.AddDbContext<VehiklParkingContext>(options => options.UseInMemoryDatabase("VehiklParkingDb"));
+            services.AddDbContext<VehiklParkingContext>(options => options.UseSqlite("data source=VehiklParking.db"));
+            services.AddCors(options => {
+                options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, VehiklParkingContext context)
-        {
-            // Insert some test data
-            context.Seed();
-            
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {     
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -51,6 +51,7 @@ namespace VehiklParkingApi
             }
 
             //app.UseHttpsRedirection();
+            app.UseCors();
             app.UseMvc();
         }
     }

@@ -9,4 +9,4 @@ namespace VehiklParkingApi.ViewModels
         [Required, CreditCard]
         public string CreditCard { get; set; }
     }
-}
+} 
