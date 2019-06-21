@@ -9,7 +9,7 @@ using VehiklParkingApi.Models;
 namespace VehiklParkingApi.Migrations
 {
     [DbContext(typeof(VehiklParkingContext))]
-    [Migration("20190617185415_InitialCreate")]
+    [Migration("20190621191135_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace VehiklParkingApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<TimeSpan?>("Duration");
+                    b.Property<double?>("Duration");
 
                     b.Property<string>("Name");
 
@@ -37,21 +37,21 @@ namespace VehiklParkingApi.Migrations
                         new
                         {
                             Id = 1,
-                            Duration = new TimeSpan(0, 1, 0, 0, 0),
+                            Duration = 3600000.0,
                             Name = "1hr",
                             RateValue = 3.00m
                         },
                         new
                         {
                             Id = 2,
-                            Duration = new TimeSpan(0, 3, 0, 0, 0),
+                            Duration = 10800000.0,
                             Name = "3hr",
                             RateValue = 4.50m
                         },
                         new
                         {
                             Id = 3,
-                            Duration = new TimeSpan(0, 6, 0, 0, 0),
+                            Duration = 21600000.0,
                             Name = "6hr",
                             RateValue = 6.75m
                         },
@@ -85,28 +85,28 @@ namespace VehiklParkingApi.Migrations
                         {
                             Id = 1,
                             Customer = "Italo Di Renzo",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 17, 4, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 5, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 3
                         },
                         new
                         {
                             Id = 2,
                             Customer = "Tim Berners-Lee",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 17, 10, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 11, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 1
                         },
                         new
                         {
                             Id = 3,
                             Customer = "Leon S. Kennedy",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 17, 1, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 2, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 4
                         },
                         new
                         {
                             Id = 4,
                             Customer = "Gordon Freeman",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 17, 12, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 13, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 1
                         });
                 });

@@ -12,9 +12,9 @@ namespace VehiklParkingApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Name = table.Column<string>(nullable: true),
-                    Duration = table.Column<TimeSpan>(nullable: true),
+                    Duration = table.Column<double>(nullable: true),
                     RateValue = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -27,7 +27,7 @@ namespace VehiklParkingApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:AutoIncrement", true),
                     Customer = table.Column<string>(nullable: true),
                     IssuedOn = table.Column<DateTimeOffset>(nullable: false),
                     RateLevelId = table.Column<int>(nullable: false)
@@ -46,42 +46,24 @@ namespace VehiklParkingApi.Migrations
             migrationBuilder.InsertData(
                 table: "RateLevels",
                 columns: new[] { "Id", "Duration", "Name", "RateValue" },
-                values: new object[] { 1, new TimeSpan(0, 1, 0, 0, 0), "1hr", 3.00m });
-
-            migrationBuilder.InsertData(
-                table: "RateLevels",
-                columns: new[] { "Id", "Duration", "Name", "RateValue" },
-                values: new object[] { 2, new TimeSpan(0, 3, 0, 0, 0), "3hr", 4.50m });
-
-            migrationBuilder.InsertData(
-                table: "RateLevels",
-                columns: new[] { "Id", "Duration", "Name", "RateValue" },
-                values: new object[] { 3, new TimeSpan(0, 6, 0, 0, 0), "6hr", 6.75m });
-
-            migrationBuilder.InsertData(
-                table: "RateLevels",
-                columns: new[] { "Id", "Duration", "Name", "RateValue" },
-                values: new object[] { 4, null, "ALL DAY", 10.125m });
+                values: new object[,]
+                {
+                    { 1, 3600000.0, "1hr", 3.00m },
+                    { 2, 10800000.0, "3hr", 4.50m },
+                    { 3, 21600000.0, "6hr", 6.75m },
+                    { 4, null, "ALL DAY", 10.125m }
+                });
 
             migrationBuilder.InsertData(
                 table: "Tickets",
                 columns: new[] { "Id", "Customer", "IssuedOn", "RateLevelId" },
-                values: new object[] { 2, "Tim Berners-Lee", new DateTimeOffset(new DateTime(2019, 6, 17, 10, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)), 1 });
-
-            migrationBuilder.InsertData(
-                table: "Tickets",
-                columns: new[] { "Id", "Customer", "IssuedOn", "RateLevelId" },
-                values: new object[] { 4, "Gordon Freeman", new DateTimeOffset(new DateTime(2019, 6, 17, 12, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)), 1 });
-
-            migrationBuilder.InsertData(
-                table: "Tickets",
-                columns: new[] { "Id", "Customer", "IssuedOn", "RateLevelId" },
-                values: new object[] { 1, "Italo Di Renzo", new DateTimeOffset(new DateTime(2019, 6, 17, 4, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)), 3 });
-
-            migrationBuilder.InsertData(
-                table: "Tickets",
-                columns: new[] { "Id", "Customer", "IssuedOn", "RateLevelId" },
-                values: new object[] { 3, "Leon S. Kennedy", new DateTimeOffset(new DateTime(2019, 6, 17, 1, 54, 15, 93, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, -4, 0, 0, 0)), 4 });
+                values: new object[,]
+                {
+                    { 2, "Tim Berners-Lee", new DateTimeOffset(new DateTime(2019, 6, 21, 11, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 1 },
+                    { 4, "Gordon Freeman", new DateTimeOffset(new DateTime(2019, 6, 21, 13, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 1 },
+                    { 1, "Italo Di Renzo", new DateTimeOffset(new DateTime(2019, 6, 21, 5, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 3 },
+                    { 3, "Leon S. Kennedy", new DateTimeOffset(new DateTime(2019, 6, 21, 2, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 4 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_RateLevelId",
