@@ -11,11 +11,11 @@ namespace VehiklParkingApi.Migrations
                 name: "RateLevels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("MySQL:AutoIncrement", true),
                     Name = table.Column<string>(nullable: true),
                     Duration = table.Column<double>(nullable: true),
-                    RateValue = table.Column<decimal>(nullable: false)
+                    RateValue = table.Column<decimal>()
                 },
                 constraints: table =>
                 {
@@ -26,11 +26,11 @@ namespace VehiklParkingApi.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("MySQL:AutoIncrement", true),
                     Customer = table.Column<string>(nullable: true),
-                    IssuedOn = table.Column<DateTimeOffset>(nullable: false),
-                    RateLevelId = table.Column<int>(nullable: false)
+                    IssuedOn = table.Column<DateTimeOffset>(),
+                    RateLevelId = table.Column<int>()
                 },
                 constraints: table =>
                 {
