@@ -28,7 +28,7 @@ namespace VehiklParkingApi.Models
                     v => v.HasValue ? (TimeSpan?) TimeSpan.FromMilliseconds(v.Value) : null);
 
             // Add some test tickets
-            var now = DateTimeOffset.Now;
+            var now = DateTimeOffset.UtcNow;
             modelBuilder.Entity<Ticket>().HasData(
                 new Ticket {Id = 1, Customer = "Italo Di Renzo", RateLevelId = 3, IssuedOn = now.AddHours(-10)},
                 new Ticket {Id = 2, Customer = "Tim Berners-Lee", RateLevelId = 1, IssuedOn = now.AddHours(-4)},
