@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,20 +11,20 @@ namespace VehiklParkingApi.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        private readonly VehiklParkingContext context;
-        private readonly IConfiguration config;
+        private readonly VehiklParkingContext _context;
+        private readonly IConfiguration _config;
 
         public PaymentsController(VehiklParkingContext context, IConfiguration config)
         {
-            this.context = context;
-            this.config = config;
+            _context = context;
+            _config = config;
         }
 
         [HttpPost("{id}")]
         public async Task<ActionResult> Post(int id, [FromBody] PaymentDto payment)
         {
             // Check ticket
-            var ticket = await context.FindAsync<Ticket>(payment.TicketId);
+            var ticket = await _context.FindAsync<Ticket>(payment.TicketId);
             if (ticket == null)
                 return NotFound();
             
@@ -38,12 +35,12 @@ namespace VehiklParkingApi.Controllers
             // Credit card transaction stuff goes here...
 
             // Delete the ticket. It has been paid for (opening up a space in the garage)
-            context.Remove(ticket);
-            await context.SaveChangesAsync();
+            _context.Remove(ticket);
+            await _context.SaveChangesAsync();
 
             // Return response
-            var spacesTaken = await context.Tickets.CountAsync();
-            var maxSpaces = config.GetValue<int>("MaxParkingSpaces");
+            var spacesTaken = await _context.Tickets.CountAsync();
+            var maxSpaces = _config.GetValue<int>("MaxParkingSpaces");
             return Ok(new { message = "Thank you!", spacesTaken, spacesAvailable = maxSpaces - spacesTaken });    // Maybe return some kind of "reciept" here.
         }
     }

@@ -4,3 +4,6 @@ obj
 
 # Sqlite database file
 VehiklParking.db
+
+# JetBrains stuff
+/.idea

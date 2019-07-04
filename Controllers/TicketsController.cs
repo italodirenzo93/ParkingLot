@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,21 +12,21 @@ namespace VehiklParkingApi.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        private readonly VehiklParkingContext context;
-        private readonly IConfiguration config;
+        private readonly VehiklParkingContext _context;
+        private readonly IConfiguration _config;
 
         public TicketsController(VehiklParkingContext context, IConfiguration config)
         {
-            this.context = context;
-            this.config = config;
+            _context = context;
+            _config = config;
         }
 
         // GET api/tickets
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var tickets = await context.Tickets.Include(t => t.RateLevel).ToListAsync();
-            var capacity = config.GetValue<int>("MaxParkingSpaces");
+            var tickets = await _context.Tickets.Include(t => t.RateLevel).ToListAsync();
+            var capacity = _config.GetValue<int>("MaxParkingSpaces");
             return Ok(new { spacesTaken = tickets.Count, spacesAvailable = capacity - tickets.Count, tickets });
         }
 
@@ -36,7 +34,7 @@ namespace VehiklParkingApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
-            var ticket = await context.Tickets.Include(t => t.RateLevel).FirstOrDefaultAsync(t => t.Id == id);
+            var ticket = await _context.Tickets.Include(t => t.RateLevel).FirstOrDefaultAsync(t => t.Id == id);
             if (ticket == null)
                 return NotFound();
 
@@ -53,7 +51,7 @@ namespace VehiklParkingApi.Controllers
             if (ticket.RateLevel.Duration.HasValue)
             {
                 // Difference in time between when they pulled into the lot and now
-                var lengthOfStay = (DateTimeOffset.Now - ticket.IssuedOn);
+                var lengthOfStay = DateTimeOffset.Now - ticket.IssuedOn;
 
                 // Calculate the final ticket price (rate * stayDuration / rateTime)
                 invoice.AmountOwed = ticket.RateLevel.RateValue * (decimal)(lengthOfStay.TotalHours / ticket.RateLevel.Duration.Value.TotalHours);
@@ -74,21 +72,21 @@ namespace VehiklParkingApi.Controllers
         public async Task<ActionResult> Post([Bind("Customer", "RateLevelId")] Ticket ticket)
         {
             // Check for a valid rate level
-            ticket.RateLevel = await context.FindAsync<RateLevel>(ticket.RateLevelId);
+            ticket.RateLevel = await _context.FindAsync<RateLevel>(ticket.RateLevelId);
             if (ticket.RateLevel == null)
                 return BadRequest(new { status = 400, message = "Invalid rate level chosen. Please specify a valid rate level." });
 
             // Check if the garage is full
-            var ticketCount = await context.Tickets.CountAsync();
-            var maxSpaces = config.GetValue<int>("MaxParkingSpaces");
+            var ticketCount = await _context.Tickets.CountAsync();
+            var maxSpaces = _config.GetValue<int>("MaxParkingSpaces");
 
             // Deny entry if the garage is full
             if (ticketCount >= maxSpaces)
                 return StatusCode(429, new { status = 429, message = "Parking Garage is full." }); // Too Many Requests (garage is full)
 
             // Give a ticket
-            await context.AddAsync(ticket);
-            await context.SaveChangesAsync();
+            await _context.AddAsync(ticket);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(Post), new { ticket.Id, ticket.Customer, ticket.IssuedOn, rate = ticket.RateLevel.Name });
         }
     }
