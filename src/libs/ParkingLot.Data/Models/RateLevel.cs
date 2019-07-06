@@ -1,6 +1,6 @@
 using System;
 
-namespace VehiklParkingApi.Models
+namespace ParkingLot.Data.Models
 {
     public class RateLevel
     {

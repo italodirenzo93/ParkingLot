@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using VehiklParkingApi.Models;
+using ParkingLot.Data;
 
-namespace VehiklParkingApi
+namespace ParkingLot.Api
 {
     public class Startup
     {
@@ -22,7 +22,7 @@ namespace VehiklParkingApi
         {
             // Configure the database connection. Could also use other backends such as SQLite, MySQL, SQLServer, etc.
             // Selected in-memory database for simplicity of demonstration
-            services.AddDbContext<VehiklParkingContext>(options => options.UseMySQL(Configuration.GetConnectionString("MainDb")));
+            services.AddDbContext<VehiklParkingDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MainDb")));
             services.AddCors(options => {
                 options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));
             });

@@ -1,6 +1,6 @@
 using System;
 
-namespace VehiklParkingApi.ViewModels
+namespace ParkingLot.Api.ViewModels
 {
     public class InvoiceDto
     {

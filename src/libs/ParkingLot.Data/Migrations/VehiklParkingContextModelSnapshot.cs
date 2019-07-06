@@ -3,22 +3,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
-using VehiklParkingApi.Models;
+using ParkingLot.Data.Models;
 
-namespace VehiklParkingApi.Migrations
+namespace ParkingLot.Data.Migrations
 {
-    [DbContext(typeof(VehiklParkingContext))]
-    [Migration("20190621191135_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(VehiklParkingDbContext))]
+    partial class VehiklParkingContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
-            modelBuilder.Entity("VehiklParkingApi.Models.RateLevel", b =>
+            modelBuilder.Entity("ParkingLot.Api.Models.RateLevel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -63,7 +61,7 @@ namespace VehiklParkingApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("VehiklParkingApi.Models.Ticket", b =>
+            modelBuilder.Entity("ParkingLot.Api.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -85,35 +83,35 @@ namespace VehiklParkingApi.Migrations
                         {
                             Id = 1,
                             Customer = "Italo Di Renzo",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 5, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 3, 18, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
                             RateLevelId = 3
                         },
                         new
                         {
                             Id = 2,
                             Customer = "Tim Berners-Lee",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 11, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 4, 0, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
                             RateLevelId = 1
                         },
                         new
                         {
                             Id = 3,
                             Customer = "Leon S. Kennedy",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 2, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 3, 15, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
                             RateLevelId = 4
                         },
                         new
                         {
                             Id = 4,
                             Customer = "Gordon Freeman",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 13, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 4, 2, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
                             RateLevelId = 1
                         });
                 });
 
-            modelBuilder.Entity("VehiklParkingApi.Models.Ticket", b =>
+            modelBuilder.Entity("ParkingLot.Api.Models.Ticket", b =>
                 {
-                    b.HasOne("VehiklParkingApi.Models.RateLevel", "RateLevel")
+                    b.HasOne("ParkingLot.Api.Models.RateLevel", "RateLevel")
                         .WithMany()
                         .HasForeignKey("RateLevelId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -2,19 +2,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using VehiklParkingApi.Models;
-using VehiklParkingApi.ViewModels;
+using ParkingLot.Api.ViewModels;
+using ParkingLot.Data;
+using ParkingLot.Data.Models;
 
-namespace VehiklParkingApi.Controllers
+namespace ParkingLot.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        private readonly VehiklParkingContext _context;
+        private readonly VehiklParkingDbContext _context;
         private readonly IConfiguration _config;
 
-        public PaymentsController(VehiklParkingContext context, IConfiguration config)
+        public PaymentsController(VehiklParkingDbContext context, IConfiguration config)
         {
             _context = context;
             _config = config;

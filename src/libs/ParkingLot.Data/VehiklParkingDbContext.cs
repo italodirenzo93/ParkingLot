@@ -1,11 +1,12 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using ParkingLot.Data.Models;
 
-namespace VehiklParkingApi.Models
+namespace ParkingLot.Data
 {
-    public class VehiklParkingContext : DbContext
+    public class VehiklParkingDbContext : DbContext
     {
-        public VehiklParkingContext(DbContextOptions options)
+        public VehiklParkingDbContext(DbContextOptions options)
             : base(options)
         {   
         }

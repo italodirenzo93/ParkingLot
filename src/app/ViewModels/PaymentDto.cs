@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace VehiklParkingApi.ViewModels
+namespace ParkingLot.Api.ViewModels
 {
     public class PaymentDto
     {

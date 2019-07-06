@@ -11,24 +11,12 @@
           <e p="PaymentsController.cs" t="Include" />
           <e p="TicketsController.cs" t="Include" />
         </e>
-        <e p="Migrations" t="Include">
-          <e p="20190621191135_InitialCreate.Designer.cs" t="Include" />
-          <e p="20190621191135_InitialCreate.cs" t="Include" />
-          <e p="20190704041907_ConvertTimeToUtc.Designer.cs" t="Include" />
-          <e p="20190704041907_ConvertTimeToUtc.cs" t="Include" />
-          <e p="VehiklParkingContextModelSnapshot.cs" t="Include" />
-        </e>
-        <e p="Models" t="Include">
-          <e p="RateLevel.cs" t="Include" />
-          <e p="Ticket.cs" t="Include" />
-          <e p="VehiklParkingContext.cs" t="Include" />
-        </e>
+        <e p="ParkingLot.Api.csproj" t="IncludeRecursive" />
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
-        <e p="VehiklParkingApi.csproj" t="IncludeRecursive" />
         <e p="ViewModels" t="Include">
           <e p="InvoiceDto.cs" t="Include" />
           <e p="PaymentDto.cs" t="Include" />
@@ -39,7 +27,30 @@
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
-              <e p="VehiklParkingApi.AssemblyInfo.cs" t="Include" />
+              <e p="ParkingLot.Api.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="src/libs/ParkingLot.Data" t="IncludeRecursive">
+        <e p="Migrations" t="Include">
+          <e p="20190621191135_InitialCreate.Designer.cs" t="Include" />
+          <e p="20190621191135_InitialCreate.cs" t="Include" />
+          <e p="20190704041907_ConvertTimeToUtc.Designer.cs" t="Include" />
+          <e p="20190704041907_ConvertTimeToUtc.cs" t="Include" />
+          <e p="VehiklParkingContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="RateLevel.cs" t="Include" />
+          <e p="Ticket.cs" t="Include" />
+        </e>
+        <e p="ParkingLot.Data.csproj" t="IncludeRecursive" />
+        <e p="VehiklParkingDbContext.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="ParkingLot.Data.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
