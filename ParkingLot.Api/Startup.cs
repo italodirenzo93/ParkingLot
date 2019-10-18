@@ -31,12 +31,13 @@ namespace ParkingLot.Api
             });
 
             // Config objects
-            services.Configure<ParkingLotConfig>(Configuration.GetSection("ParkingLot"));
+            services.AddSingleton(Configuration.GetSection("ParkingLot").Get<ParkingLotConfig>());
             
             // Add services
             services.AddScoped<ITicketService, TicketService>();
-            
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddControllers();
+            services.AddRouting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +49,8 @@ namespace ParkingLot.Api
             }
             
             app.UseCors();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(options => { options.MapControllers(); });
         }
     }
 }

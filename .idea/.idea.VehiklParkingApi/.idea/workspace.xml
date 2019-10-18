@@ -2,29 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3633ad40-9eff-487c-bc0d-d87f7a07a939" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/Controllers/PaymentsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/Controllers/TicketsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/ParkingLot.Api.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/ParkingLotConfig.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/Properties/launchSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/Startup.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/ViewModels/InvoiceDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/ViewModels/PaymentDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Api/appsettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/Migrations/20190621191135_InitialCreate.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/Migrations/20190621191135_InitialCreate.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/Migrations/20190704041907_ConvertTimeToUtc.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/Migrations/20190704041907_ConvertTimeToUtc.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/Migrations/VehiklParkingContextModelSnapshot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/Models/RateLevel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/Models/Ticket.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/ParkingLot.Data.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkingLot.Data/VehiklParkingDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ParkingLot.Api/Controllers/PaymentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ParkingLot.Api/Controllers/PaymentsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ParkingLot.Api/Controllers/TicketsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ParkingLot.Api/Controllers/TicketsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ParkingLot.Tickets.Tests/TicketServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ParkingLot.Tickets.Tests/TicketServiceTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ParkingLot.Tickets/TicketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ParkingLot.Tickets/TicketService.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +28,7 @@
     <setting file="file://$PROJECT_DIR$/ParkingLot.Tickets/ITicketService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ParkingLot.Api/Controllers/TicketsController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ParkingLot.Api/ParkingLotConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ParkingLot.Api/Controllers/PaymentsController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ParkingLot.Api/Startup.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -60,14 +43,15 @@
         <option value="$PROJECT_DIR$/src/libs/ParkingLot.Data/ParkingLot.Data.csproj" />
         <option value="$PROJECT_DIR$/src/app/ParkingLot.Api.csproj" />
         <option value="$PROJECT_DIR$/src/app/ViewModels/InvoiceDto.cs" />
-        <option value="$PROJECT_DIR$/ParkingLot.Tickets/TicketService.cs" />
         <option value="$PROJECT_DIR$/ParkingLot.Tickets/ParkingLot.Tickets.csproj" />
         <option value="$PROJECT_DIR$/ParkingLot.Api/ParkingLot.Api.csproj" />
-        <option value="$PROJECT_DIR$/ParkingLot.Tickets.Tests/TicketServiceTests.cs" />
         <option value="$PROJECT_DIR$/ParkingLot.Api/appsettings.json" />
         <option value="$PROJECT_DIR$/ParkingLot.Api/ParkingLotConfig.cs" />
         <option value="$PROJECT_DIR$/ParkingLot.Api/Startup.cs" />
+        <option value="$PROJECT_DIR$/ParkingLot.Tickets.Tests/TicketServiceTests.cs" />
         <option value="$PROJECT_DIR$/ParkingLot.Api/Controllers/TicketsController.cs" />
+        <option value="$PROJECT_DIR$/ParkingLot.Api/Controllers/PaymentsController.cs" />
+        <option value="$PROJECT_DIR$/ParkingLot.Tickets/TicketService.cs" />
       </list>
     </option>
   </component>
@@ -149,6 +133,9 @@
       <workItem from="1571370286676" duration="705000" />
       <workItem from="1571404374431" duration="113000" />
       <workItem from="1571404658651" duration="1085000" />
+      <workItem from="1571415812161" duration="1199000" />
+      <workItem from="1571421958683" duration="6000" />
+      <workItem from="1571433512051" duration="82000" />
     </task>
     <task id="LOCAL-00001" summary="Update .gitignore">
       <created>1571366777138</created>

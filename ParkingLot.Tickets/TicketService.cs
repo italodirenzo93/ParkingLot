@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ParkingLot.Data;
 using ParkingLot.Data.Models;
 
@@ -8,14 +10,21 @@ namespace ParkingLot.Tickets
     public class TicketService : ITicketService
     {
         private readonly VehiklParkingDbContext _context;
+        private readonly ParkingLotConfig _config;
 
-        public TicketService(VehiklParkingDbContext context)
+        public TicketService(VehiklParkingDbContext context, ParkingLotConfig config)
         {
             _context = context;
+            _config = config;
         }
 
-        public async Task<Ticket> GetById(int id) => await _context.FindAsync<Ticket>(id);
+        public IQueryable<Ticket> Queryable => _context.Tickets.AsQueryable();
 
+        /// <summary>
+        /// Formula is (rate * stayDuration / rateTime) rounded to 2 decimal places.
+        /// </summary>
+        /// <param name="ticket">Ticket to calculate the amount owing for.</param>
+        /// <returns>The monetary amount owed.</returns>
         public decimal GetAmountOwed(Ticket ticket)
         {
             // All-day overage charges would be calculated based on whatever the lot's policy and definition of "All day" is
@@ -31,6 +40,26 @@ namespace ParkingLot.Tickets
             
             // Format to 2 decimal places
             return decimal.Round(price, 2);
+        }
+
+        public async Task<Ticket> IssueNewTicket(string customer, int rateLevelId)
+        {
+            // Deny entry if the garage is full
+            var ticketCount = await _context.Tickets.CountAsync();
+            if (ticketCount >= _config.MaxParkingSpaces)
+                throw new LotFullException(_config.MaxParkingSpaces);
+            
+            // Give a ticket
+            var ticket = new Ticket
+            {
+                Customer = customer,
+                RateLevelId = rateLevelId
+            };
+
+            await _context.AddAsync(ticket);
+            await _context.SaveChangesAsync();
+
+            return ticket;
         }
     }
 }

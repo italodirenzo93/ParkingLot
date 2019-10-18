@@ -1,10 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using ParkingLot.Api.ViewModels;
-using ParkingLot.Data;
 using ParkingLot.Data.Models;
 using ParkingLot.Tickets;
 
@@ -14,30 +11,28 @@ namespace ParkingLot.Api.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        private readonly VehiklParkingDbContext _context;
         private readonly ParkingLotConfig _config;
         private readonly ITicketService _ticketService;
 
-        public TicketsController(VehiklParkingDbContext context, ParkingLotConfig config, ITicketService ticketService)
+        public TicketsController(ParkingLotConfig config, ITicketService ticketService)
         {
-            _context = context;
             _config = config;
             _ticketService = ticketService;
         }
 
         // GET api/tickets
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<IActionResult> Get()
         {
-            var tickets = await _context.Tickets.Include(t => t.RateLevel).ToListAsync();
+            var tickets = await _ticketService.Queryable.Include(t => t.RateLevel).ToListAsync();
             return Ok(new { spacesTaken = tickets.Count, spacesAvailable = _config.MaxParkingSpaces - tickets.Count, tickets });
         }
 
         // GET api/tickets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var ticket = await _context.Tickets.Include(t => t.RateLevel).FirstOrDefaultAsync(t => t.Id == id);
+            var ticket = await _ticketService.Queryable.Include(t => t.RateLevel).FirstOrDefaultAsync(t => t.Id == id);
             if (ticket == null)
                 return NotFound();
 
@@ -57,23 +52,17 @@ namespace ParkingLot.Api.Controllers
 
         // POST api/tickets
         [HttpPost]
-        public async Task<ActionResult> Post([Bind("Customer", "RateLevelId")] Ticket ticket)
+        public async Task<IActionResult> Post([Bind("Customer", "RateLevelId")] Ticket ticket)
         {
-            // Check for a valid rate level
-            ticket.RateLevel = await _context.FindAsync<RateLevel>(ticket.RateLevelId);
-            if (ticket.RateLevel == null)
-                return BadRequest(new { status = 400, message = "Invalid rate level chosen. Please specify a valid rate level." });
-
-            // Check if the garage is full
-            var ticketCount = await _context.Tickets.CountAsync();
-
-            // Deny entry if the garage is full
-            if (ticketCount >= _config.MaxParkingSpaces)
-                return StatusCode(429, new { status = 429, message = "Parking Garage is full." }); // Too Many Requests (garage is full)
-
-            // Give a ticket
-            await _context.AddAsync(ticket);
-            await _context.SaveChangesAsync();
+            try
+            {
+                ticket = await _ticketService.IssueNewTicket(ticket.Customer, ticket.RateLevelId);
+            }
+            catch (LotFullException ex)
+            {
+                return StatusCode(429, new { status = 429, message = ex.Message }); // Too Many Requests (garage is full)
+            }
+            
             return CreatedAtAction(nameof(Post), new { ticket.Id, ticket.Customer, ticket.IssuedOn, rate = ticket.RateLevel.Name });
         }
     }

@@ -1,4 +1,4 @@
-namespace ParkingLot.Api
+namespace ParkingLot.Tickets
 {
     public class ParkingLotConfig
     {
