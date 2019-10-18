@@ -2,19 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3633ad40-9eff-487c-bc0d-d87f7a07a939" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi.dir/riderModule.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/ParkingLot.Tickets.Tests/ParkingLot.Tickets.Tests.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ParkingLot.Tickets.Tests/TicketServiceTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ParkingLot.Tickets/ITicketService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ParkingLot.Tickets/ParkingLot.Tickets.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ParkingLot.Tickets/TicketService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VehiklParkingApi/riderModule.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VehiklParkingApi.sln" beforeDir="false" afterPath="$PROJECT_DIR$/VehiklParkingApi.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Controllers/TicketsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Controllers/TicketsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/ParkingLot.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ParkingLot.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/ViewModels/InvoiceDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ViewModels/InvoiceDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/ParkingLot.Data/ParkingLot.Data.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/ParkingLot.Data/ParkingLot.Data.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/ParkingLot.Data/VehiklParkingDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/ParkingLot.Data/VehiklParkingDbContext.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,22 +25,62 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/libs/ParkingLot.Data/Models/RateLevel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/libs/ParkingLot.Data/Models/Ticket.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/libs/ParkingLot.Data/Migrations/20190621191135_InitialCreate.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/libs/ParkingLot.Data/Migrations/VehiklParkingContextModelSnapshot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/libs/ParkingLot.Data/Migrations/20190704041907_ConvertTimeToUtc.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ParkingLot.Tickets.Tests/TicketServiceTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/app/ViewModels/InvoiceDto.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/app/Controllers/TicketsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ParkingLot.Tickets/TicketService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/libs/ParkingLot.Data/VehiklParkingDbContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ParkingLot.Tickets/ITicketService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/app/Startup.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6AF603B7-B405-4BD0-A3F4-817278FD1C76/f7/9da3688e/ServiceCollectionServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/ParkingLot.Tickets/Class1.cs" />
+        <option value="$PROJECT_DIR$/src/app/Controllers/TicketsController.cs" />
+        <option value="$PROJECT_DIR$/src/app/Startup.cs" />
+        <option value="$PROJECT_DIR$/ParkingLot.Tickets.Tests/UnitTest1.cs" />
+        <option value="$PROJECT_DIR$/src/libs/ParkingLot.Data/VehiklParkingDbContext.cs" />
+        <option value="$PROJECT_DIR$/src/libs/ParkingLot.Data/ParkingLot.Data.csproj" />
+        <option value="$PROJECT_DIR$/src/app/ParkingLot.Api.csproj" />
+        <option value="$PROJECT_DIR$/src/app/ViewModels/InvoiceDto.cs" />
+        <option value="$PROJECT_DIR$/ParkingLot.Tickets/TicketService.cs" />
+        <option value="$PROJECT_DIR$/ParkingLot.Tickets.Tests/TicketServiceTests.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1SMGwpn4Kh0N23MJCrXugxaMsiW" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -96,28 +138,42 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571366293575</updated>
-      <workItem from="1571366296615" duration="245000" />
+      <workItem from="1571366296615" duration="3872000" />
+      <workItem from="1571370286676" duration="705000" />
     </task>
+    <task id="LOCAL-00001" summary="Update .gitignore">
+      <created>1571366777138</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1571366777138</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
+    <MESSAGE value="Update .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update .gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

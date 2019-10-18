@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using ParkingLot.Api.ViewModels;
 using ParkingLot.Data;
 using ParkingLot.Data.Models;
+using ParkingLot.Tickets;
 
 namespace ParkingLot.Api.Controllers
 {
@@ -15,11 +16,13 @@ namespace ParkingLot.Api.Controllers
     {
         private readonly VehiklParkingDbContext _context;
         private readonly IConfiguration _config;
+        private readonly ITicketService _ticketService;
 
-        public TicketsController(VehiklParkingDbContext context, IConfiguration config)
+        public TicketsController(VehiklParkingDbContext context, IConfiguration config, ITicketService ticketService)
         {
             _context = context;
             _config = config;
+            _ticketService = ticketService;
         }
 
         // GET api/tickets
@@ -40,31 +43,16 @@ namespace ParkingLot.Api.Controllers
                 return NotFound();
 
             // Build the invoice model
-            var invoice = new InvoiceDto {
+            var invoice = new InvoiceDto
+            {
                 TicketId = ticket.Id,
                 Customer = ticket.Customer,
                 IssuedOn = ticket.IssuedOn,
                 Rate = ticket.RateLevel.Name,
-                BaseRate = ticket.RateLevel.RateValue
+                BaseRate = ticket.RateLevel.RateValue,
+                AmountOwed = _ticketService.GetAmountOwed(ticket)
             };
 
-            // If this is a timed rate, calculate the amount the customer owes
-            if (ticket.RateLevel.Duration.HasValue)
-            {
-                // Difference in time between when they pulled into the lot and now
-                var lengthOfStay = DateTimeOffset.UtcNow - ticket.IssuedOn;
-
-                // Calculate the final ticket price (rate * stayDuration / rateTime)
-                invoice.AmountOwed = ticket.RateLevel.RateValue * (decimal)(lengthOfStay.TotalHours / ticket.RateLevel.Duration.Value.TotalHours);
-            }
-            // Flat rate
-            else
-            {
-                // All-day overage charges would be calculated based on whatever the lot's policy and definition of "All day" is
-                // For now, we'll just assume they pay the flat rate for the duration of their stay
-                invoice.AmountOwed = ticket.RateLevel.RateValue;
-            }
-            
             return Ok(invoice);
         }
 

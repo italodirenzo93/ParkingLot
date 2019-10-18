@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using ParkingLot.Data;
+using ParkingLot.Tickets;
 
 namespace ParkingLot.Api
 {
@@ -23,14 +25,19 @@ namespace ParkingLot.Api
             // Configure the database connection. Could also use other backends such as SQLite, MySQL, SQLServer, etc.
             // Selected in-memory database for simplicity of demonstration
             services.AddDbContext<VehiklParkingDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MainDb")));
-            services.AddCors(options => {
+            services.AddCors(options =>
+            {
                 options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            // Add services
+            services.AddScoped<ITicketService, TicketService>();
+            
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {     
             if (env.IsDevelopment())
             {

@@ -10,13 +10,6 @@ namespace ParkingLot.Api.ViewModels
         public DateTimeOffset CurrentTime { get; } = DateTimeOffset.UtcNow;
         public string Rate { get; set; }
         public decimal BaseRate { get; set; }
-
-        private decimal _amountOwed;
-        public decimal AmountOwed
-        {
-            // Format to 2 decimal places in the getter in case we decide to change the precision later
-            get => decimal.Round(_amountOwed, 2);
-            set => _amountOwed = value;
-        }
+        public decimal AmountOwed { get; set; }
     }
 }
