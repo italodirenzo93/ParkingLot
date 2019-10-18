@@ -29,6 +29,9 @@ namespace ParkingLot.Api
             {
                 options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));
             });
+
+            // Config objects
+            services.Configure<ParkingLotConfig>(Configuration.GetSection("ParkingLot"));
             
             // Add services
             services.AddScoped<ITicketService, TicketService>();

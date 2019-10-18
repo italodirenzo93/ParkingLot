@@ -15,10 +15,10 @@ namespace ParkingLot.Api.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly VehiklParkingDbContext _context;
-        private readonly IConfiguration _config;
+        private readonly ParkingLotConfig _config;
         private readonly ITicketService _ticketService;
 
-        public TicketsController(VehiklParkingDbContext context, IConfiguration config, ITicketService ticketService)
+        public TicketsController(VehiklParkingDbContext context, ParkingLotConfig config, ITicketService ticketService)
         {
             _context = context;
             _config = config;
@@ -30,8 +30,7 @@ namespace ParkingLot.Api.Controllers
         public async Task<ActionResult> Get()
         {
             var tickets = await _context.Tickets.Include(t => t.RateLevel).ToListAsync();
-            var capacity = _config.GetValue<int>("MaxParkingSpaces");
-            return Ok(new { spacesTaken = tickets.Count, spacesAvailable = capacity - tickets.Count, tickets });
+            return Ok(new { spacesTaken = tickets.Count, spacesAvailable = _config.MaxParkingSpaces - tickets.Count, tickets });
         }
 
         // GET api/tickets/5
@@ -67,10 +66,9 @@ namespace ParkingLot.Api.Controllers
 
             // Check if the garage is full
             var ticketCount = await _context.Tickets.CountAsync();
-            var maxSpaces = _config.GetValue<int>("MaxParkingSpaces");
 
             // Deny entry if the garage is full
-            if (ticketCount >= maxSpaces)
+            if (ticketCount >= _config.MaxParkingSpaces)
                 return StatusCode(429, new { status = 429, message = "Parking Garage is full." }); // Too Many Requests (garage is full)
 
             // Give a ticket

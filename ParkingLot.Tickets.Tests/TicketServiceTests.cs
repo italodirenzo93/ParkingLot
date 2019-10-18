@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ParkingLot.Data;
@@ -22,22 +23,23 @@ namespace ParkingLot.Tickets.Tests
             _ticketService = new TicketService(_context);
         }
         
-        [Fact]
-        public async Task ItCalculatesTheCorrectOwingAmount()
+        [Theory]
+        [MemberData(nameof(ItCalculatesTheCorrectOwingAmount_Data))]
+        public async Task ItCalculatesTheCorrectOwingAmount(DateTimeOffset issuedOn, TimeSpan rateDuration, decimal rateValue, decimal expectedTotal)
         {
             // arrange
             var rateLevel = new RateLevel
             {
-                Name = "3 Hours",
-                Duration = TimeSpan.FromHours(3),
-                RateValue = 1.50M
+                Name = rateDuration.ToString(),
+                Duration = rateDuration,
+                RateValue = rateValue
             };
 
             var ticket = new Ticket
             {
                 Customer = "Test Customer",
                 RateLevel = rateLevel,
-                IssuedOn = DateTimeOffset.UtcNow.AddHours(-6)
+                IssuedOn = issuedOn
             };
 
             await _context.AddAsync(ticket);
@@ -47,7 +49,12 @@ namespace ParkingLot.Tickets.Tests
             var amountOwing = _ticketService.GetAmountOwed(ticket);
             
             // assert
-            Assert.Equal(3M, amountOwing);
+            Assert.Equal(expectedTotal, amountOwing);
         }
+
+        public static IEnumerable<object[]> ItCalculatesTheCorrectOwingAmount_Data => new[]
+        {
+            new object[] {DateTimeOffset.UtcNow.AddHours(-6), TimeSpan.FromHours(3), 1.50M, 3M}
+        };
     }
 }

@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ParkingLot.Tickets\ParkingLot.Tickets.csproj" />
-    <ProjectReference Include="..\libs\ParkingLot.Data\ParkingLot.Data.csproj" />
+    <ProjectReference Include="..\ParkingLot.Tickets\ParkingLot.Tickets.csproj" />
+    <ProjectReference Include="..\ParkingLot.Data\ParkingLot.Data.csproj" />
   </ItemGroup>
 
 </Project>
