@@ -8,7 +8,7 @@ using ParkingLot.Data.Models;
 
 namespace ParkingLot.Data.Migrations
 {
-    [DbContext(typeof(VehiklParkingDbContext))]
+    [DbContext(typeof(ParkingLotDbContext))]
     [Migration("20190704041907_ConvertTimeToUtc")]
     partial class ConvertTimeToUtc
     {

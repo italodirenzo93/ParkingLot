@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -9,16 +10,19 @@ namespace ParkingLot.Tickets
 {
     public class TicketService : ITicketService
     {
-        private readonly VehiklParkingDbContext _context;
+        private readonly ParkingLotDbContext _context;
         private readonly ParkingLotConfig _config;
 
-        public TicketService(VehiklParkingDbContext context, ParkingLotConfig config)
+        public TicketService(ParkingLotDbContext context, ParkingLotConfig config)
         {
             _context = context;
             _config = config;
         }
 
-        public IQueryable<Ticket> Queryable => _context.Tickets.AsQueryable();
+        public async Task<List<Ticket>> GetAll() => await _context.Tickets.AsNoTracking().Include(x => x.RateLevel).ToListAsync();
+
+        public async Task<Ticket> GetById(int id) => await _context.Tickets.AsNoTracking().Include(x => x.RateLevel)
+            .FirstOrDefaultAsync(x => x.Id == id); 
 
         /// <summary>
         /// Formula is (rate * stayDuration / rateTime) rounded to 2 decimal places.

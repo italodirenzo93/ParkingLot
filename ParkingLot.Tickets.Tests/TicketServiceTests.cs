@@ -10,9 +10,7 @@ namespace ParkingLot.Tickets.Tests
 {
     public class TicketServiceTests
     {
-        private readonly VehiklParkingDbContext _context;
-        private readonly TicketService _ticketService;
-        private readonly ParkingLotConfig _config = new ParkingLotConfig {MaxParkingSpaces = 3};
+        private readonly ParkingLotDbContext _context;
 
         public TicketServiceTests()
         {
@@ -20,14 +18,44 @@ namespace ParkingLot.Tickets.Tests
                 .UseInMemoryDatabase(nameof(TicketServiceTests))
                 .Options;
 
-            _context = new VehiklParkingDbContext(options);
-            _ticketService = new TicketService(_context, _config);
+            _context = new ParkingLotDbContext(options);
+        }
+
+        [Fact]
+        public async Task ItIssuesATicketIfThereIsASpace()
+        {
+            // arrange
+            var config = new ParkingLotConfig {MaxParkingSpaces = 3};
+            var ticketService = new TicketService(_context, config);
+            var rateLevel = new RateLevel
+            {
+                Name = "Test Rate",
+                RateValue = 1.25M
+            };
+            
+            var tickets = new[]
+            {
+                new Ticket {Customer = "Test Customer 1", RateLevel = rateLevel},
+                new Ticket {Customer = "Test Customer 2", RateLevel = rateLevel}
+            };
+
+            await _context.Tickets.AddRangeAsync(tickets);
+            await _context.SaveChangesAsync();
+            
+            // act
+            var newTicket = await ticketService.IssueNewTicket("cust", rateLevel.Id);
+            
+            // assert
+            Assert.NotNull(newTicket);
+            Assert.Equal("cust", newTicket.Customer);
         }
 
         [Fact]
         public async Task ItRefusesEntryIfTheLotIsFull()
         {
             // arrange
+            var config = new ParkingLotConfig {MaxParkingSpaces = 3};
+            var ticketService = new TicketService(_context, config);
             var rateLevel = new RateLevel
             {
                 Name = "Test Rate",
@@ -45,7 +73,7 @@ namespace ParkingLot.Tickets.Tests
             await _context.SaveChangesAsync();
             
             // act/assert
-            await Assert.ThrowsAsync<LotFullException>(async () => await _ticketService.IssueNewTicket("Test Customer 4", 1));
+            await Assert.ThrowsAsync<LotFullException>(async () => await ticketService.IssueNewTicket("Test Customer 4", 1));
         }
         
         [Theory]
@@ -53,6 +81,8 @@ namespace ParkingLot.Tickets.Tests
         public async Task ItCalculatesTheCorrectOwingAmount(DateTimeOffset issuedOn, TimeSpan rateDuration, decimal rateValue, decimal expectedTotal)
         {
             // arrange
+            var config = new ParkingLotConfig {MaxParkingSpaces = 3};
+            var ticketService = new TicketService(_context, config);
             var rateLevel = new RateLevel
             {
                 Name = rateDuration.ToString(),
@@ -71,7 +101,7 @@ namespace ParkingLot.Tickets.Tests
             await _context.SaveChangesAsync();
             
             // act
-            var amountOwing = _ticketService.GetAmountOwed(ticket);
+            var amountOwing = ticketService.GetAmountOwed(ticket);
             
             // assert
             Assert.Equal(expectedTotal, amountOwing);

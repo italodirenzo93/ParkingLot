@@ -8,7 +8,7 @@ using ParkingLot.Data.Models;
 
 namespace ParkingLot.Data.Migrations
 {
-    [DbContext(typeof(VehiklParkingDbContext))]
+    [DbContext(typeof(ParkingLotDbContext))]
     [Migration("20190621191135_InitialCreate")]
     partial class InitialCreate
     {

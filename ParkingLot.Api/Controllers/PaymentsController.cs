@@ -13,10 +13,10 @@ namespace ParkingLot.Api.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        private readonly VehiklParkingDbContext _context;
+        private readonly ParkingLotDbContext _context;
         private readonly ParkingLotConfig _config;
 
-        public PaymentsController(VehiklParkingDbContext context, ParkingLotConfig config)
+        public PaymentsController(ParkingLotDbContext context, ParkingLotConfig config)
         {
             _context = context;
             _config = config;

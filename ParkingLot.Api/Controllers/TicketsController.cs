@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ParkingLot.Api.ViewModels;
 using ParkingLot.Data.Models;
 using ParkingLot.Tickets;
@@ -24,7 +23,7 @@ namespace ParkingLot.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var tickets = await _ticketService.Queryable.Include(t => t.RateLevel).ToListAsync();
+            var tickets = await _ticketService.GetAll();
             return Ok(new { spacesTaken = tickets.Count, spacesAvailable = _config.MaxParkingSpaces - tickets.Count, tickets });
         }
 
@@ -32,7 +31,7 @@ namespace ParkingLot.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var ticket = await _ticketService.Queryable.Include(t => t.RateLevel).FirstOrDefaultAsync(t => t.Id == id);
+            var ticket = await _ticketService.GetById(id);
             if (ticket == null)
                 return NotFound();
 

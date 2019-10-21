@@ -24,7 +24,7 @@ namespace ParkingLot.Api
         {
             // Configure the database connection. Could also use other backends such as SQLite, MySQL, SQLServer, etc.
             // Selected in-memory database for simplicity of demonstration
-            services.AddDbContext<VehiklParkingDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MainDb")));
+            services.AddDbContext<ParkingLotDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MainDb")));
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));

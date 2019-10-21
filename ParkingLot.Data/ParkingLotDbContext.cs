@@ -4,9 +4,9 @@ using ParkingLot.Data.Models;
 
 namespace ParkingLot.Data
 {
-    public class VehiklParkingDbContext : DbContext
+    public class ParkingLotDbContext : DbContext
     {
-        public VehiklParkingDbContext(DbContextOptions options)
+        public ParkingLotDbContext(DbContextOptions options)
             : base(options)
         {   
         }
