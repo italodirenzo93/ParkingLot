@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using ParkingLot.Api.ViewModels;
 using ParkingLot.Data;
 using ParkingLot.Data.Models;
+using ParkingLot.Tickets;
 
 namespace ParkingLot.Api.Controllers
 {
@@ -12,10 +13,10 @@ namespace ParkingLot.Api.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        private readonly VehiklParkingDbContext _context;
-        private readonly IConfiguration _config;
+        private readonly ParkingLotDbContext _context;
+        private readonly ParkingLotConfig _config;
 
-        public PaymentsController(VehiklParkingDbContext context, IConfiguration config)
+        public PaymentsController(ParkingLotDbContext context, ParkingLotConfig config)
         {
             _context = context;
             _config = config;
@@ -41,8 +42,7 @@ namespace ParkingLot.Api.Controllers
 
             // Return response
             var spacesTaken = await _context.Tickets.CountAsync();
-            var maxSpaces = _config.GetValue<int>("MaxParkingSpaces");
-            return Ok(new { message = "Thank you!", spacesTaken, spacesAvailable = maxSpaces - spacesTaken });    // Maybe return some kind of "reciept" here.
+            return Ok(new { message = "Thank you!", spacesTaken, spacesAvailable = _config.MaxParkingSpaces - spacesTaken });    // Maybe return some kind of "reciept" here.
         }
     }
 }

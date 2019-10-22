@@ -8,9 +8,9 @@ using ParkingLot.Data.Models;
 
 namespace ParkingLot.Data.Migrations
 {
-    [DbContext(typeof(VehiklParkingDbContext))]
-    [Migration("20190704041907_ConvertTimeToUtc")]
-    partial class ConvertTimeToUtc
+    [DbContext(typeof(ParkingLotDbContext))]
+    [Migration("20190621191135_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,28 +85,28 @@ namespace ParkingLot.Data.Migrations
                         {
                             Id = 1,
                             Customer = "Italo Di Renzo",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 3, 18, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 5, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 3
                         },
                         new
                         {
                             Id = 2,
                             Customer = "Tim Berners-Lee",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 4, 0, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 11, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 1
                         },
                         new
                         {
                             Id = 3,
                             Customer = "Leon S. Kennedy",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 3, 15, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 2, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 4
                         },
                         new
                         {
                             Id = 4,
                             Customer = "Gordon Freeman",
-                            IssuedOn = new DateTimeOffset(new DateTime(2019, 7, 4, 2, 19, 7, 38, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 0, 0, 0, 0)),
+                            IssuedOn = new DateTimeOffset(new DateTime(2019, 6, 21, 13, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)),
                             RateLevelId = 1
                         });
                 });

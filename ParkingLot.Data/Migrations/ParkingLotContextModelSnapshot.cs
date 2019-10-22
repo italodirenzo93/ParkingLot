@@ -7,8 +7,8 @@ using ParkingLot.Data.Models;
 
 namespace ParkingLot.Data.Migrations
 {
-    [DbContext(typeof(VehiklParkingDbContext))]
-    partial class VehiklParkingContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ParkingLotDbContext))]
+    partial class ParkingLotContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
