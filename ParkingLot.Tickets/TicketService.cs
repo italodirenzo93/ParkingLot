@@ -67,13 +67,15 @@ namespace ParkingLot.Tickets
             await _context.AddAsync(ticket);
             await _context.SaveChangesAsync();
 
+            await _context.Entry(ticket).Reference(x => x.RateLevel).LoadAsync();
+
             return ticket;
         }
 
         public async Task PayTicket(int ticketId)
         {
             // Check ticket
-            var ticket = _context.FindAsync<Ticket>(ticketId);
+            var ticket = await _context.FindAsync<Ticket>(ticketId);
             if (ticket == null)
                 throw new TicketNotFoundException(ticketId);
             

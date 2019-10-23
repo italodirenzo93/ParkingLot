@@ -11,11 +11,11 @@ namespace ParkingLot.Data.Migrations
                 name: "RateLevels",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("MySQL:AutoIncrement", true),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Duration = table.Column<double>(nullable: true),
-                    RateValue = table.Column<decimal>()
+                    Duration = table.Column<long>(nullable: true),
+                    RateValue = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,11 +26,11 @@ namespace ParkingLot.Data.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("MySQL:AutoIncrement", true),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Customer = table.Column<string>(nullable: true),
-                    IssuedOn = table.Column<DateTimeOffset>(),
-                    RateLevelId = table.Column<int>()
+                    IssuedOn = table.Column<DateTimeOffset>(nullable: false),
+                    RateLevelId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,9 +48,9 @@ namespace ParkingLot.Data.Migrations
                 columns: new[] { "Id", "Duration", "Name", "RateValue" },
                 values: new object[,]
                 {
-                    { 1, 3600000.0, "1hr", 3.00m },
-                    { 2, 10800000.0, "3hr", 4.50m },
-                    { 3, 21600000.0, "6hr", 6.75m },
+                    { 1, 36000000000L, "1hr", 3.00m },
+                    { 2, 108000000000L, "3hr", 4.50m },
+                    { 3, 216000000000L, "6hr", 6.75m },
                     { 4, null, "ALL DAY", 10.125m }
                 });
 
@@ -59,10 +59,10 @@ namespace ParkingLot.Data.Migrations
                 columns: new[] { "Id", "Customer", "IssuedOn", "RateLevelId" },
                 values: new object[,]
                 {
-                    { 2, "Tim Berners-Lee", new DateTimeOffset(new DateTime(2019, 6, 21, 11, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 1 },
-                    { 4, "Gordon Freeman", new DateTimeOffset(new DateTime(2019, 6, 21, 13, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 1 },
-                    { 1, "Italo Di Renzo", new DateTimeOffset(new DateTime(2019, 6, 21, 5, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 3 },
-                    { 3, "Leon S. Kennedy", new DateTimeOffset(new DateTime(2019, 6, 21, 2, 11, 34, 948, DateTimeKind.Unspecified).AddTicks(1160), new TimeSpan(0, -4, 0, 0, 0)), 4 }
+                    { 2, "Tim Berners-Lee", new DateTimeOffset(new DateTime(2019, 10, 23, 16, 29, 28, 862, DateTimeKind.Unspecified).AddTicks(2210), new TimeSpan(0, 0, 0, 0, 0)), 1 },
+                    { 4, "Gordon Freeman", new DateTimeOffset(new DateTime(2019, 10, 23, 18, 29, 28, 862, DateTimeKind.Unspecified).AddTicks(2210), new TimeSpan(0, 0, 0, 0, 0)), 1 },
+                    { 1, "Italo Di Renzo", new DateTimeOffset(new DateTime(2019, 10, 23, 10, 29, 28, 862, DateTimeKind.Unspecified).AddTicks(2210), new TimeSpan(0, 0, 0, 0, 0)), 3 },
+                    { 3, "Leon S. Kennedy", new DateTimeOffset(new DateTime(2019, 10, 23, 7, 29, 28, 862, DateTimeKind.Unspecified).AddTicks(2210), new TimeSpan(0, 0, 0, 0, 0)), 4 }
                 });
 
             migrationBuilder.CreateIndex(
