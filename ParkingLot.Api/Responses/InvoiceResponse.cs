@@ -1,8 +1,8 @@
 using System;
 
-namespace ParkingLot.Api.ViewModels
+namespace ParkingLot.Api.Responses
 {
-    public class InvoiceDto
+    public class InvoiceResponse
     {
         public int TicketId { get; set; }
         public string Customer { get; set; }

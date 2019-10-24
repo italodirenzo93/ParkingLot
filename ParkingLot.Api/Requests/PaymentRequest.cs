@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ParkingLot.Api.ViewModels
+namespace ParkingLot.Api.Requests
 {
-    public class PaymentDto
+    public class PaymentRequest
     {
         public int TicketId { get; set; }
 

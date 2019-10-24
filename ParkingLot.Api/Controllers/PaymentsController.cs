@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ParkingLot.Api.ViewModels;
+using ParkingLot.Api.Requests;
+using ParkingLot.Api.Responses;
 using ParkingLot.Tickets;
 
 namespace ParkingLot.Api.Controllers
@@ -19,7 +20,7 @@ namespace ParkingLot.Api.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult> Post(int id, [FromBody] PaymentDto payment)
+        public async Task<ActionResult> Post(int id, [FromBody] PaymentRequest payment)
         {
             // Check that the payment is addressed to this ticket's endpoint
             if (id != payment.TicketId)
@@ -34,9 +35,14 @@ namespace ParkingLot.Api.Controllers
                 return NotFound(new {status = 404, message = ex.Message});
             }
 
-            // Return response
+            // Maybe return some kind of "receipt" here.
             var spacesTaken = await _ticketService.GetTotal();
-            return Ok(new { message = "Thank you!", spacesTaken, spacesAvailable = _config.MaxParkingSpaces - spacesTaken });    // Maybe return some kind of "reciept" here.
+            return Ok(new PaymentResponse
+            {
+                Message = "Thank you!",
+                SpacesTaken = spacesTaken,
+                SpacesAvailable = _config.MaxParkingSpaces - spacesTaken
+            });
         }
     }
 }

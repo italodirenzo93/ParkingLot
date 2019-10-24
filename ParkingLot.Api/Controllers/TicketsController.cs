@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ParkingLot.Api.ViewModels;
+using ParkingLot.Api.Requests;
+using ParkingLot.Api.Responses;
 using ParkingLot.Data.Models;
 using ParkingLot.Tickets;
 
@@ -24,7 +25,12 @@ namespace ParkingLot.Api.Controllers
         public async Task<IActionResult> Get()
         {
             var tickets = await _ticketService.GetAll();
-            return Ok(new { spacesTaken = tickets.Count, spacesAvailable = _config.MaxParkingSpaces - tickets.Count, tickets });
+            return Ok(new AllTicketsResponse
+            {
+                SpacesTaken = tickets.Count,
+                SpacesAvailable = _config.MaxParkingSpaces - tickets.Count,
+                Tickets = tickets
+            });
         }
 
         // GET api/tickets/5
@@ -36,7 +42,7 @@ namespace ParkingLot.Api.Controllers
                 return NotFound();
 
             // Build the invoice model
-            var invoice = new InvoiceDto
+            var invoice = new InvoiceResponse
             {
                 TicketId = ticket.Id,
                 Customer = ticket.Customer,
@@ -62,7 +68,13 @@ namespace ParkingLot.Api.Controllers
                 return StatusCode(429, new { status = 429, message = ex.Message }); // Too Many Requests (garage is full)
             }
             
-            return CreatedAtAction(nameof(Post), new { ticket.Id, ticket.Customer, ticket.IssuedOn, rate = ticket.RateLevel.Name });
+            return CreatedAtAction(nameof(Post), new CreatedTicketResponse
+            {
+                Id = ticket.Id,
+                Customer = ticket.Customer,
+                IssuedOn = ticket.IssuedOn,
+                Rate = ticket.RateLevel.Name
+            });
         }
     }
 }
