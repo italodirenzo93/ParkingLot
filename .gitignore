@@ -1,11 +1,7 @@
 # Compiled outputs
 bin/
 obj/
-
-# Sqlite database file
-VehiklParking.db
-
-# Common IntelliJ Platform excludes
+dist/
 
 # Jetbrains
 .idea/
