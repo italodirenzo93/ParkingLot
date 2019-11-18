@@ -13,7 +13,7 @@ My solution to the Vehikl Parking Lot Challenge.
 - Run the project using the `dotnet run` command.
 - Execute requests against `http://localhost:5000/` or `https://localhost:5001/`.
 
-# Generating Migrations
+## Generating Migrations
 To generate a new migration after the data model has changed, run `dotnet ef migrations add <migration_name> --project ParkingLot.Data --startup-project ParkingLot.Api` from the project root.
 
 ## Useful Tools
