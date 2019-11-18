@@ -20,7 +20,7 @@ namespace ParkingLot.Api.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult> Post(int id, [FromBody] PaymentRequest payment)
+        public async Task<IActionResult> Post(int id, [FromBody] PaymentRequest payment)
         {
             // Check that the payment is addressed to this ticket's endpoint
             if (id != payment.TicketId)

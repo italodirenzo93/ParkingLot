@@ -22,11 +22,11 @@ namespace ParkingLot.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Configure the database connection. Could also use other backends such as SQLite, MySQL, SQLServer, etc.
-            // Selected in-memory database for simplicity of demonstration
+            // Configure the database connection
             services.AddDbContext<ParkingLotDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ParkingLotDb")));
             
+            // Add Cors
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));
@@ -38,6 +38,7 @@ namespace ParkingLot.Api
             // Add services
             services.AddScoped<ITicketService, TicketService>();
 
+            // Add other necessities
             services.AddControllers();
             services.AddRouting();
         }

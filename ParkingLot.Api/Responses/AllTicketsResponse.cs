@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ParkingLot.Data.Models;
 
-namespace ParkingLot.Api.Requests
+namespace ParkingLot.Api.Responses
 {
     public class AllTicketsResponse
     {
