@@ -20,7 +20,7 @@ namespace ParkingLot.Tickets
         }
 
         public async Task<List<Ticket>> GetAll() =>
-            await _context.Tickets.AsNoTracking().Include(x => x.RateLevel).ToListAsync();
+            await _context.Tickets.AsNoTracking().ToListAsync();
 
         public async Task<int> GetTotal() => await _context.Tickets.CountAsync();
 

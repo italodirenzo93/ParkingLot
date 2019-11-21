@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +28,7 @@ namespace ParkingLot.Api
             // Add Cors
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000"));
+                options.AddDefaultPolicy(builder => builder.WithOrigins("*"));
             });
 
             // Config objects
@@ -52,7 +51,7 @@ namespace ParkingLot.Api
             
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();    
+                app.UseDeveloperExceptionPage();
             }
             
             app.UseCors();
