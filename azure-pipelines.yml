@@ -7,10 +7,9 @@ pr:
   branches:
     include:
     - master
-    - azure_pipelines
   paths:
     exclude:
-    - README.md 
+    - README.md
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -19,8 +18,15 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK 3.1.x'
+  inputs:
+    version: '3.1.x'
+    packageType: sdk
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- script: dotnet test
-  displayName: dotnet test
-
+  
+- task: DotNetCoreCLI@2
+  displayName: 'Test'
+  inputs:
+    command: test
