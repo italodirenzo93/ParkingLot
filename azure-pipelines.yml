@@ -7,7 +7,6 @@ pr:
   branches:
     include:
     - master
-    - azure_pipelines
   paths:
     exclude:
     - README.md 
