@@ -1,3 +1,0 @@
-name: ParkingLot
-runtime: nodejs
-description: A minimal Azure TypeScript Pulumi program
