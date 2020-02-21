@@ -28,7 +28,12 @@ namespace ParkingLot.Api
             // Add Cors
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder => builder.WithOrigins("*"));
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                });
             });
 
             // Config objects
