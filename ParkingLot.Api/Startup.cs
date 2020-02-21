@@ -24,7 +24,7 @@ namespace ParkingLot.Api
             // Configure the database connection
             services.AddDbContext<ParkingLotDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ParkingLotDb")));
-            
+
             // Add Cors
             services.AddCors(options =>
             {
@@ -38,7 +38,7 @@ namespace ParkingLot.Api
 
             // Config objects
             services.AddSingleton(Configuration.GetSection("ParkingLot").Get<ParkingLotConfig>());
-            
+
             // Add services
             services.AddScoped<ITicketService, TicketService>();
 
@@ -53,12 +53,12 @@ namespace ParkingLot.Api
             // Run migrations on startup
             var context = app.ApplicationServices.GetRequiredService<ParkingLotDbContext>();
             context.Database.Migrate();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseCors();
             app.UseRouting();
             app.UseEndpoints(options => { options.MapControllers(); });

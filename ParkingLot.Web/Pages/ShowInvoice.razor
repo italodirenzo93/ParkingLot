@@ -1,0 +1,63 @@
+@page "/invoice/{Id:int}"
+
+@using System.ComponentModel.DataAnnotations
+@using ParkingLot.Web.Models
+@using ParkingLot.Web.Services
+@inject TicketsService TicketsService
+@inject NavigationManager NavigationManager
+
+@if (invoice != null)
+{
+    <h1>Hello @invoice.Customer</h1>
+    <p>Your invoice for ticket #@invoice.TicketId.ToString("D4")</p>
+
+    <dl>
+        <dt>Issue Date</dt>
+        <dd>@invoice.IssuedOn.ToLocalTime().ToString("yyyy-MM-dd hh:mm tt")</dd>
+        <dt>Base Rate</dt>
+        <dd>$@invoice.BaseRate - @invoice.Rate</dd>
+        <dt>Amount Owing</dt>
+        <dd>$@invoice.AmountOwed</dd>
+    </dl>
+
+    <EditForm Model="@paymentForm" OnValidSubmit="PayTicket">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-inline">
+            <div class="form-group">
+                <label>Credit Card #:</label>
+                <InputText class="form-control" @bind-Value="paymentForm.CreditCard" placeholder="0000 0000 0000 0000"></InputText>
+            </div>
+            <button type="submit" class="btn btn-primary">Pay Now</button>
+        </div>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Invoice invoice;
+    private string paymentMessage;
+    private bool showPaymentMessage;
+
+    private readonly PaymentForm paymentForm = new PaymentForm();
+
+    protected override async Task OnInitializedAsync()
+    {
+        invoice = await TicketsService.GetInvoiceAsync(Id);
+    }
+
+    public async Task PayTicket()
+    {
+        await TicketsService.PayTicket(Id, paymentForm.CreditCard);
+        NavigationManager.NavigateTo("/");
+    }
+
+    public class PaymentForm
+    {
+        [Required, CreditCard, Display(Name = "Credit Card")]
+        public string CreditCard { get; set; }
+    }
+}

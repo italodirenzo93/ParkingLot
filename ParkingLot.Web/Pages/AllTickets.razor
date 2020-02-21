@@ -1,0 +1,43 @@
+@page "/"
+@using ParkingLot.Web.Models
+@using ParkingLot.Web.Services
+@inject TicketsService ticketsService
+
+<h1>Tickets</h1>
+
+@if (tickets != null && tickets.Any())
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Issued On</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var ticket in tickets)
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td><a href="/invoice/@ticket.Id">@ticket.Customer</a></td>
+                <td>@ticket.IssuedOn.ToLocalTime()</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-center">No outstanding tickets.</p>
+}
+
+
+@code {
+    private IEnumerable<Ticket> tickets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        tickets = await ticketsService.GetTicketsAsync();
+    }
+}
