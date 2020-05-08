@@ -34,17 +34,22 @@ namespace ParkingLot.Tickets
         /// <returns>The monetary amount owed.</returns>
         public decimal GetAmountOwed(Ticket ticket)
         {
+            if (ticket.RateLevel == null)
+            {
+                throw new ArgumentException("Ticket instance must have a rate level", nameof(ticket));
+            }
+            
             // All-day overage charges would be calculated based on whatever the lot's policy and definition of "All day" is
             // For now, we'll just assume they pay the flat rate for the duration of their stay
-            if (!ticket.RateLevel.Duration.HasValue) return ticket.RateLevel.RateValue;
+            if (ticket.RateLevel.Duration == null) return ticket.RateLevel.RateValue;
 
             // If this is a timed rate, calculate the amount the customer owes
             // Difference in time between when they pulled into the lot and now
             var lengthOfStay = DateTimeOffset.UtcNow - ticket.IssuedOn;
 
             // Calculate the final ticket price (rate * stayDuration / rateTime)
-            var price = ticket.RateLevel.RateValue *
-                        (decimal) (lengthOfStay.TotalHours / ticket.RateLevel.Duration.Value.TotalHours);
+            var price = ticket.RateLevel!.RateValue *
+                        (decimal) (lengthOfStay.TotalHours / ticket.RateLevel!.Duration!.Value.TotalHours);
 
             // Format to 2 decimal places
             return decimal.Round(price, 2);

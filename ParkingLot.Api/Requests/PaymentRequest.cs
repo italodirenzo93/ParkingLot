@@ -6,7 +6,6 @@ namespace ParkingLot.Api.Requests
     {
         public int TicketId { get; set; }
 
-        [Required, CreditCard]
-        public string CreditCard { get; set; }
+        [Required, CreditCard] public string CreditCard { get; set; } = string.Empty;
     }
 } 

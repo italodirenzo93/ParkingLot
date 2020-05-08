@@ -7,6 +7,6 @@ namespace ParkingLot.Api.Responses
     {
         public int SpacesAvailable { get; set; }
         public int SpacesTaken { get; set; }
-        public IEnumerable<Ticket> Tickets { get; set; }
+        public List<Ticket> Tickets { get; set; } = new List<Ticket>();
     }
 }
