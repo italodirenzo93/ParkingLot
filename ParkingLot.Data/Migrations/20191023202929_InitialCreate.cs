@@ -51,7 +51,9 @@ namespace ParkingLot.Data.Migrations
                     { 1, 36000000000L, "1hr", 3.00m },
                     { 2, 108000000000L, "3hr", 4.50m },
                     { 3, 216000000000L, "6hr", 6.75m },
+                    #nullable disable
                     { 4, null, "ALL DAY", 10.125m }
+                    #nullable restore
                 });
 
             migrationBuilder.InsertData(

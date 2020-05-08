@@ -11,9 +11,11 @@ namespace ParkingLot.Data
         {   
         }
 
+        #nullable disable
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<RateLevel> RateLevels { get; set; }
-
+        #nullable restore
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Store timespan as ticks

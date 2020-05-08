@@ -39,8 +39,10 @@
     public int Id { get; set; }
 
     private Invoice invoice;
-    private string paymentMessage;
+#pragma warning disable 169
     private bool showPaymentMessage;
+    private string paymentMessage;
+#pragma warning restore 169
 
     private readonly PaymentForm paymentForm = new PaymentForm();
 
