@@ -9,6 +9,8 @@ namespace ParkingLot.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public class TicketsController : ControllerBase
     {
         private readonly ParkingLotConfig _config;
@@ -22,6 +24,7 @@ namespace ParkingLot.Api.Controllers
 
         // GET api/tickets
         [HttpGet]
+        [ProducesResponseType(typeof(AllTicketsResponse), 200)]
         public async Task<IActionResult> Get()
         {
             var tickets = await _ticketService.GetAll();
@@ -35,6 +38,7 @@ namespace ParkingLot.Api.Controllers
 
         // GET api/tickets/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(InvoiceResponse), 200)]
         public async Task<IActionResult> Get(int id)
         {
             var ticket = await _ticketService.GetById(id);
@@ -47,7 +51,7 @@ namespace ParkingLot.Api.Controllers
                 TicketId = ticket.Id,
                 Customer = ticket.Customer,
                 IssuedOn = ticket.IssuedOn,
-                Rate = ticket.RateLevel.Name,
+                Rate = ticket.RateLevel!.Name,
                 BaseRate = ticket.RateLevel.RateValue,
                 AmountOwed = _ticketService.GetAmountOwed(ticket)
             };
@@ -57,6 +61,7 @@ namespace ParkingLot.Api.Controllers
 
         // POST api/tickets
         [HttpPost]
+        [ProducesResponseType(typeof(CreatedTicketResponse), 200)]
         public async Task<IActionResult> Post([Bind("Customer", "RateLevelId")] Ticket ticket)
         {
             try
@@ -73,7 +78,7 @@ namespace ParkingLot.Api.Controllers
                 Id = ticket.Id,
                 Customer = ticket.Customer,
                 IssuedOn = ticket.IssuedOn,
-                Rate = ticket.RateLevel.Name
+                Rate = ticket.RateLevel?.Name ?? string.Empty
             });
         }
     }

@@ -20,6 +20,9 @@ namespace ParkingLot.Api.Controllers
         }
 
         [HttpPost("{id}")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(PaymentResponse), 200)]
         public async Task<IActionResult> Post(int id, [FromBody] PaymentRequest payment)
         {
             // Check that the payment is addressed to this ticket's endpoint

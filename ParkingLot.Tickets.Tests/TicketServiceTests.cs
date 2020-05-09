@@ -107,6 +107,23 @@ namespace ParkingLot.Tickets.Tests
             Assert.Equal(expectedTotal, amountOwing);
         }
 
+        [Fact]
+        public void ItThrowsArgumentException_IfTicketHasNoRateLevel()
+        {
+            // arrange
+            var ticket = new Ticket
+            {
+                Id = 2,
+                RateLevelId = 12,
+                RateLevel = null
+            };
+
+            var service = new TicketService(_context, new ParkingLotConfig());
+            
+            // act/assert
+            Assert.Throws<ArgumentException>(() => service.GetAmountOwed(ticket));
+        }
+
         public static IEnumerable<object[]> ItCalculatesTheCorrectOwingAmount_Data => new[]
         {
             new object[] {DateTimeOffset.UtcNow.AddHours(-6), TimeSpan.FromHours(3), 1.50M, 3M},
